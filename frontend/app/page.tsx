@@ -1,27 +1,13 @@
-import Hero from "@/components/hero";
-import { getPosts } from "@/data";
-import { notFound } from "next/navigation";
+import Hero from "@/components/home/hero";
+import FeaturedPosts from "@/components/home/featured-posts";
 
-async function loader() {
-  const data = await getPosts();
-  if (!data) notFound();
-  return data;
-}
 
-export default async function Home() {
-  const posts = await loader();
+export default  function Home() {
 
   return (
     <main className=" flex flex-col bg-slate-100">
       <Hero />
-      {
-        posts.data.map((post) => (
-          <div key={post.id}>
-            <h2>{post.title}</h2>
-            <p>{post.content[0].children[0].text}</p>
-          </div>
-        ))
-      }
+      <FeaturedPosts/>
     </main>
   );
 }
